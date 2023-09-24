@@ -1,8 +1,11 @@
 - hosts: all
   become: yes
   tasks:
-    - name: install packages
-      become_user: jari
+    - name: Update apt cache and make sure inxi, screenfetch and ansiweather are installed
       apt:
-        state: present
-        name: inxi
+        name: "{{ item }}"
+        update_cache: yes
+      loop:
+        - inxi
+        - screenfetch
+        - ansiweather
