@@ -13,5 +13,5 @@
     stat: path=/var/run/reboot-required get_md5=no
  
   - name: Reboot a Linux machine 
-     reboot:
+    reboot:
     reboot_timeout: 1800
