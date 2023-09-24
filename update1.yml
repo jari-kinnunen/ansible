@@ -12,7 +12,8 @@
         pre_reboot_delay: 5
         post_reboot_delay: 10
         test_command: "whoami"
-    - name: Waiting for the machine to come back
-        local_action: wait_for host={{ ansible_host }} state=started port=22 delay=120
-        become: no
-        when: reboot_required_file.stat.exists
+   - name: Check the uptime after reboot
+     shell: uptime
+     register: UPTIME_POST_REBOOT
+
+   - debug: msg={{UPTIME_POST_REBOOT.stdout}}
