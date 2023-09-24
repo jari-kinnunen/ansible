@@ -1,6 +1,11 @@
 - hosts: all
   become: yes
   tasks:
+    - name: update and upgrade
+      apt:
+        update_cache: yes
+        upgrade: 'yes'
+        cache_valid_time: 86400
     - name: reboot host(s)
       ansible.builtin.reboot:
         msg: "reboot by Ansible"
