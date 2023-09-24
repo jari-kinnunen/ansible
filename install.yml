@@ -1,9 +1,9 @@
 - hosts: all
   become: yes
   tasks:
-- name: Install a list of packages
-  ansible.builtin.apt:
-    pkg:
-    - inxi
-    - screenfetch
-    - ansiweather
+  - name: Install a list of packages
+    ansible.builtin.apt:
+      pkg:
+      - inxi
+      - screenfetch
+      - ansiweather
