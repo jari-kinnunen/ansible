@@ -1,6 +1,6 @@
 - hosts: all
-  become: true
-  become_method: su
+  become: yes
+  become_method: sudo
   become_user: jari
   tasks:
   - name: update and upgrade
