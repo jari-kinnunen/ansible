@@ -1,7 +1,5 @@
 - hosts: all
   become: yes
-  become_method: su
-  become_user: jari
   tasks:
   - name: Install a list of packages
     ansible.builtin.apt:
