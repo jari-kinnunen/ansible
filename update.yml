@@ -8,6 +8,8 @@
      update_cache: yes
      upgrade: 'yes'
      cache_valid_time: 86400
+  - name: Wait for /var/lib/dpkg/lock-frontend to be released 
+    shell: while lsof /var/lib/dpkg/lock-frontend ; do sleep 10; done;
   - name: Check if reboot is required
     stat:
      path: /var/run/reboot-required
