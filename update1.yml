@@ -9,20 +9,20 @@
       become: yes
       apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
 
-#    - name: Upgrade all packages on servers
-#      become: yes
-#      apt: upgrade=safe force_apt_get=yes
+    - name: Upgrade all packages on servers
+      become: yes
+      apt: upgrade=safe force_apt_get=yes
     
-#    - name: Remove apt lock file
-#      file:
-#        state: absent
-#        path: "/var/lib/dpkg/lock-frontend"
-#      become: true
-#      tags: apt
+    - name: Remove apt lock file
+      file:
+        state: absent
+        path: "/var/lib/dpkg/lock-frontend"
+      become: true
+      tags: apt
       
-#    - name: Wait for APT Lock
-#      become: yes
-#      shell:  while fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 5; done;
+    - name: Wait for APT Lock
+      become: yes
+      shell:  while fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 5; done;
 
     - name: Check if a reboot is needed on all servers
       become: yes
