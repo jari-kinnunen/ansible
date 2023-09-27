@@ -1,4 +1,5 @@
 - hosts: all
+  tasks:
     - name: Upgrade all apt packages
       become: true
       become_method: sudo
