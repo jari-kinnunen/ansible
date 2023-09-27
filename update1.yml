@@ -5,13 +5,13 @@
   become_user: root
   tasks:
   
-    - name: Update apt repo and cache on all Debian/Ubuntu boxes
+    - name: Update apt repo and cache on all Debian/Ubuntu servers
       become: yes
       apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
 
     - name: Upgrade all packages on servers
       become: yes
-      apt: upgrade=dist force_apt_get=yes
+      apt: upgrade=full force_apt_get=yes
       
     - name: Wait for APT Lock
       become: yes
