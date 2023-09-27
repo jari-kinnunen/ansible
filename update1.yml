@@ -1,5 +1,4 @@
 ---
-- name: Update Ubuntu Packages
 - hosts: all
   become: true
   become_method: sudo
