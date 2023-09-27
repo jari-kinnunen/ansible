@@ -1,5 +1,5 @@
 - hosts: all
-  - name: Update apt Cache
+  - name: update and upgrade
      apt: 
      update_cache: yes
      force_apt_get: yes
