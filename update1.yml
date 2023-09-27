@@ -2,12 +2,12 @@
   tasks:
   - name: update and upgrade
      apt: 
-     update_cache: yes
-     force_apt_get: yes
+      update_cache: yes
+      force_apt_get: yes
   - name: Wait for APT Lock
      shell:  while fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 5; done;
   - name: Install Apt Packages
      apt:
-     name: "{{ apt_packages }}"
-     state: present
-     force_apt_get: yes
+      name: "{{ apt_packages }}"
+      state: present
+      force_apt_get: yes
