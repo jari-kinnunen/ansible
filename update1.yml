@@ -4,7 +4,20 @@
   become_method: sudo
   become_user: root
   tasks:
+
+    - name: remove files and directories
+      ansible.builtin.file:
+      state: "{{ item }}"
+      path: ""
+      owner: 1000  # set your owner, group, and mode accordingly
+      group: 1000
+      mode: '0777'
+        with_items:
+        - absent
+        - directory
+  
     - name: Update apt repo and cache on all Debian/Ubuntu boxes
+      become: true
       apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
 
     - name: Upgrade all packages on servers
