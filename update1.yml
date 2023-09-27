@@ -1,13 +1,22 @@
 - hosts: all
+##  become_method: sudo
   tasks:
   - name: update and upgrade
-     apt: 
+    apt:
      update_cache: yes
-     upgrade: yes
-  - name: Wait for APT Lock
-     shell:  while fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 5; done;
-  - name: Install Apt Packages
-     apt:
-      name: "{{ apt_packages }}"
-      state: present
-      force_apt_get: yes
+     upgrade: 'yes'
+     cache_valid_time: 86400
+
+#- hosts: all
+#  tasks:
+#  - name: update and upgrade
+#     apt: 
+#     update_cache: yes
+#     upgrade: yes
+#  - name: Wait for APT Lock
+#     shell:  while fuser /var/lib/dpkg/lock >/dev/null 2>&1; do sleep 5; done;
+#  - name: Install Apt Packages
+#     apt:
+#      name: "{{ apt_packages }}"
+#      state: present
+#      force_apt_get: yes
