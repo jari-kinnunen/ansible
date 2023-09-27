@@ -1,13 +1,14 @@
 - hosts: all
   tasks:
-    - name: Upgrade all apt packages
-      become: true
-      become_method: sudo
-      apt:
-       upgrade: full
-       register: apt_action
-       retries: 100
-       until: apt_action is success or ('Failed to lock apt for exclusive operation' not in apt_action.msg and '/var/lib/dpkg/lock' not in apt_action.msg)
+- name: Reboot host and wait for it to restart
+  reboot:
+    msg: "Reboot initiated by Ansible"
+    connect_timeout: 10
+    reboot_timeout: 300
+    pre_reboot_delay: 0
+    post_reboot_delay: 60
+    test_command: whoami
+  become: true
       
 
 #- hosts: all
