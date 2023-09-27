@@ -6,7 +6,6 @@
      update_cache: yes
      force_apt_get: yes
      upgrade: yes
-     cache_valid_time: 86400
    - name: Remove apt lock file
      file:
     state: absent
