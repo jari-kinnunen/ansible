@@ -17,7 +17,7 @@
       file:
         state: absent
         path: "/var/lib/dpkg/lock-frontend"
-      become: yes
+      become: true
       tags: apt
       
     - name: Wait for APT Lock
