@@ -4,6 +4,13 @@
   become_method: sudo
   become_user: root
   tasks:
+
+    - name: Remove apt lock file
+      file:
+        state: absent
+        path: "/var/lib/dpkg/lock-frontend"
+      become: yes
+      tags: apt
   
     - name: Update apt repo and cache on all Debian/Ubuntu servers
       become: yes
