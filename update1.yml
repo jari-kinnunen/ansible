@@ -11,7 +11,7 @@
 
     - name: Upgrade all packages on servers
       become: yes
-      apt: upgrade=full force_apt_get=yes
+      apt: apt_upgrade=true force_apt_get=yes
       
     - name: Wait for APT Lock
       become: yes
