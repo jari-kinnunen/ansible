@@ -1,20 +1,30 @@
----
-- name: Update Linux host
-  hosts: all
-  become: yes
+- hosts: all
+##  become_method: sudo
   tasks:
-- name: Update APT Cache
-   apt:
-    update_cache: yes
-    force_apt_get: yes
-
-- name: Remove apt lock file
-   file:
-    state: absent
-    path: "/var/lib/dpkg/lock"
-
-- name: Upgrade all packages to the latest version
-   apt:
-    name: "*"
-    state: latest
-    force_apt_get: yes
+  - name: update and upgrade
+    apt:
+     update_cache: yes
+     force_apt_get: yes
+     upgrade: yes
+     cache_valid_time: 86400
+  - name: Wait for /var/lib/dpkg/lock-frontend to be released 
+    shell: while lsof /var/lib/dpkg/lock-frontend ; do sleep 10; done;
+  - name: Check if reboot is required
+    stat:
+     path: /var/run/reboot-required
+    register: reboot_required_file
+  - name: Prompt for rebooting
+    pause:
+      prompt: "Press ENTER to reboot {{ item }} now, or Ctrl+C to abort."
+    when: "'reboot_required_file' in hostvars[item] and hostvars[item]['reboot_required_file'].stat.exists"
+    with_items: "{{ play_hosts }}"
+  - name: Rebooting machine
+    shell: sleep 5 && shutdown -r now "Ansible updates triggered"
+    async: 1
+    poll: 0
+    ignore_errors: true
+    when: reboot_required_file.stat.exists
+  - name: Waiting for the machine to come back
+    local_action: wait_for host={{ ansible_host }} state=started port=22 delay=120
+    become: no
+    when: reboot_required_file.stat.exists
