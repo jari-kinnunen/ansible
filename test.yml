@@ -2,14 +2,8 @@
 - hosts: all
   become: true
   tasks:
+   - name: Update and upgrade apt packages
     apt:
-    upgrade: yes
-    update_cache: yes
-    cache_valid_time: 86400- name: Update all packages to their latest version
-    ansible.builtin.apt:
-      name: "*"
-      state: latest
-  - name: Remove dependencies that are no longer required and purge their configuration files
-    ansible.builtin.apt:
-      autoremove: yes
-      purge: true
+      upgrade: yes
+      update_cache: yes
+      cache_valid_time: 86400
