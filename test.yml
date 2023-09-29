@@ -5,7 +5,7 @@
   - name: Upgrade the OS (apt-get dist-upgrade)
     ansible.builtin.apt:
       upgrade: "safe"
-  - name: Remove apt lock file
+- name: Remove apt lock file
   file:
     state: absent
     path: "/var/lib/dpkg/lock-frontend"
