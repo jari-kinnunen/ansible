@@ -1,14 +1,18 @@
 ---
 - hosts: all
-  become: yes
-  become_method: sudo
+  become: true
+  become_method: su
   become_user: jari
   tasks:
-   - name: packages | ensure apt list dir exists
-     file:
-      path: /var/lib/apt/lists/
-      state: directory
-      mode: 0755
-   - name: Run the equivalent of "apt-get update" as a separate step
-     ansible.builtin.apt:
-      update_cache: yes
+   - name: install httpd
+     apt:
+      name: httpd
+      state: latest
+#   - name: packages | ensure apt list dir exists
+#     file:
+#      path: /var/lib/apt/lists/
+#      state: directory
+#      mode: 0755
+#   - name: Run the equivalent of "apt-get update" as a separate step
+#     ansible.builtin.apt:
+#      update_cache: yes
