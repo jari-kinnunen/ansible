@@ -2,7 +2,7 @@
 - hosts: all
   become: yes
   become_method: sudo
-  become_user: root
+  become_user: jari
   tasks:
    - name: Run the equivalent of "apt-get update" as a separate step
      ansible.builtin.apt:
