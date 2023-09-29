@@ -3,11 +3,6 @@
   become: yes
   become_method: sudo
   tasks:
-  - name: Install packages
-      apt:
-        name:
-        - inxi
-        - screenfetch
-        - ansiweather
-        state: latest
-        cache_valid_time: 3600
+  - name: Run the equivalent of "apt-get update" as a separate step
+  ansible.builtin.apt:
+    update_cache: yes
