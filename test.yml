@@ -3,6 +3,7 @@
   become: true
   become_method: sudo
   become_user: jari
+  remote_user: jari
   tasks:
    - name: packages | ensure apt list dir exists
      file:
