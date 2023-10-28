@@ -1,29 +1,7 @@
 ---
--  hosts: all
-   become: yes
-   tasks:
-
-      - name: install figlet
-        apt:
-          name: figlet
-          state: present
-
-      - name: install inxi
-        apt:
-          name: inxi
-          state: present
-
-      - name: install screenfetch
-        apt:
-          name: screenfetch
-          state: present
-
-      - name: install ansiweather
-        apt:
-          name: ansiweather
-          state: present
-
-
+- hosts: all
+  become: yes
+  tasks:
       - name: install public keys
         ansible.posix.authorized_key:
           user: jari
