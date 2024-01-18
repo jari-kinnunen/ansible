@@ -1,0 +1,25 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+      - name: Install public keys
+        ansible.posix.authorized_key:
+          user: jari
+          state: present
+          key: "{{ lookup('file', '/home/jari/.ssh/jari.pub') }}"
+
+      # NOTE: Fully quoted because of the ': ' on the line. See the Gotchas in the YAML docs.
+      - name: Validate the sudoers file before saving
+        ansible.builtin.lineinfile:
+          path: /etc/sudoers
+          state: present
+          regexp: '^%sudo'
+          line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+          validate: /usr/sbin/visudo -cf %s
+
+      # Adding user to the sudoers file
+      - lineinfile:
+          path: /etc/sudoers
+          state: present
+          regexp: '^%wheel\s'
+          line: '%jari ALL=(ALL) NOPASSWD: ALL'
